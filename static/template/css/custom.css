@@ -1,0 +1,24 @@
+.product .box .box-call .box-call {
+    padding: 9px 20px 9px 20px;
+    background: #dc4c46;
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    display: inline-block;
+}
+.product .box .box-call .box-call::after {
+    position: absolute;
+    top: 0px;
+    right: -46px;
+    content: '';
+    border-width: 23px;
+    border-style: solid;
+    border-top-color: rgba(0,0,0,0);
+    border-left-color: #bb3f3a;
+    border-right-color: rgba(0,0,0,0);
+    border-bottom-color: #bb3f3a;
+}
+.h-700 {
+    height: 450px!important;
+}
