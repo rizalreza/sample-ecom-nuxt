@@ -66,6 +66,12 @@ export default {
   */
   loading: { color: '#fff' },
 
+  router: {
+    middleware: [
+      'clearValidationErrors'
+    ]
+  },
+
   /*
   ** Global CSS
   */
@@ -76,14 +82,48 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    './plugins/mixins/validation',
+    './plugins/mixins/user',
+    './plugins/axios'
   ],
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'auth/login', method: 'post', propertyName: 'token'
+          },
+          user: {
+            url: 'profile', method: 'get', propertyName: 'data'
+          },
+          logout: {
+            url: 'auth/logout', method: 'get'
+          }
+        }
+      }
+    },
+      redirect: {
+          login: '/auth/login',
+          home: '/'
+      },
+      plugins: [
+        './plugins/auth'
+      ]
+  },
 
   /*
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
 
+  // Axios Configuration
+  axios: {
+    baseURL: 'http://127.0.0.1:8000/api/'
+  },
   /*
   ** Build configuration
   */
@@ -91,6 +131,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
+   extractCSS: true,
     extend(config, ctx) {
     }
   }

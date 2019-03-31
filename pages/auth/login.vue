@@ -20,10 +20,27 @@
 						<div class="col-sm-6 col-sm-offset-3">
 							<div class="box-1 p-50"><!-- Nav tabs --><!-- Tab panes -->
 								<h3 class="line-default f-30 selected">LOGIN</h3>
-								<form>
-									<input type="text" class="form-item" placeholder="Email">
+								<form @submit.prevent="login">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input v-model="form.email" type="text" class="form-control" :class="{ 'is-invalid' : errors.email}"  placeholder="Email">
+                                        <div class="invalid-feedback text-danger" v-if="errors.email">
+                                            {{errors.email[0]}}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input v-model="form.password" type="password" class="form-control" :class="{ 'is-invalid' : errors.password}" placeholder="Password">
+                                        <div class="invalid-feedback text-danger" v-if="errors.password">
+                                            {{errors.password[0]}}
+                                        </div>
+                                    </div>
+
+
+									<!-- <input type="text" class="form-item" placeholder="Email">
 									<input type="password" class="form-item" placeholder="Password">
-									<!-- <div class="checkbox">
+									<div class="checkbox">
 										<label><input type="checkbox" value="">Lorem ipsum dolor sit amet consectetur</label>
 									</div> -->
                                     <center>
@@ -41,8 +58,30 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Product Detail.')
+        middleware: 'guest',
+        data() {
+            return {
+                form: {
+                    email: '',
+                    password: '',
+                }
+            }
+        },
+
+        methods: {
+            login() {
+                this.$axios.$post('auth/login', this.form)
+                .then(data => {
+                    this.$auth.login({data: this.form});
+                    this.$router.push(this.$route.query.redirect ? this.$route.query.redirect : '/');
+
+                    console.log(data);   
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+            }
         }
+
     }
 </script>

@@ -32,6 +32,24 @@
 											<li><a href="#">Partnership</a></li>
 										</ul>
 									</li>
+									<template v-if="authenticated">
+										<li>
+											<a href="/auth/profile">{{user.name}}</a>
+											<ul class="sub-menu">
+												<li><a href="#" @click.prevent="signOut">Keluar</a></li>
+
+											</ul>
+										</li>
+									</template>
+									<template v-else>
+										<li>
+											<a href="#">Akun</a>
+											<ul class="sub-menu">
+												<li><a href="/auth/login">Masuk</a></li>
+												<li><a href="/auth/register">Daftar</a></li>
+											</ul>
+										</li>
+									</template>
 								</ul>
 							</nav>
 						</div>
@@ -67,7 +85,12 @@
 
 <script>
 export default {
-    
+	methods: {
+		signOut() {
+			this.$auth.logout();
+		}
+	}
+
 }
 </script>
 
