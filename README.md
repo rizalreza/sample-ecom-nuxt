@@ -1,6 +1,8 @@
-# Hobiauction
+# Eccomerce Template 
 
-> Hobiauction Web
+> Eccomerce Template with Nuxt.js
+> [API repo](https://github.com/rizalreza/nuxt-api) for consumed
+
 
 ## Build Setup
 
